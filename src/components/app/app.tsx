@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
-import { AppRoute } from '../../consts';
+import { AppRoute } from '../../const';
 import WelcomeScreen from '../../pages/welcome-screen/welcome-screen';
 import BookingScreen from '../../pages/booking-screen/booking-screen';
 import ConactsScreen from '../../pages/contacts-screen/contacts-screen';
