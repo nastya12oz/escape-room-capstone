@@ -8,9 +8,15 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import MyQuestsScreen from '../../pages/my-quests-screen/my-quests-screen';
 import QuestScreen from '../../pages/quest-screen/quest-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-
+import { useAppSelector } from '../../hooks';
+import { getQuestsList } from '../../store/quests-data/quests-data.selectors';
 
 function App(): JSX.Element {
+
+  const quests = useAppSelector(getQuestsList);
+  console.log(quests);
+
+
   return(
     <HelmetProvider>
       <Router>

@@ -13,7 +13,8 @@ export enum AppRoute {
 
 export enum APIRoute {
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  QuestsList ='/quest'
 }
 
 export enum AuthorizationStatus {
@@ -24,5 +25,6 @@ export enum AuthorizationStatus {
 
 export enum NameSpace {
   User = 'USER',
-  MyQuests = 'MY_QUESTS'
+  MyQuests = 'MY_QUESTS',
+  Quests = 'QUESTS',
 }
