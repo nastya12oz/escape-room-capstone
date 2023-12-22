@@ -27,8 +27,8 @@ state: State;
 extra: AxiosInstance;
 }>(
   'login',
-  async (login, {dispatch, extra: api}) => {
-    const {data} = await api.post<TUserData>(APIRoute.Login, login);
+  async ({email, password}, {dispatch, extra: api}) => {
+    const {data} = await api.post<TUserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
     dispatch(redirectToRoute(AppRoute.Main));
     return data;
