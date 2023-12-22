@@ -5,6 +5,7 @@ import { AppDispatch, State } from '../types/state';
 import { saveToken, dropToken } from '../sevices/token';
 import { redirectToRoute } from './action';
 import { TAuthData, TUserData } from '../types/user';
+import { TQuestsList, TQuestFull } from '../types/quest';
 
 
 export const checkAuthAction = createAsyncThunk<TUserData, undefined, {
@@ -44,5 +45,29 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
+  },
+);
+
+export const fetchQuestsListAction = createAsyncThunk<TQuestsList, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchProductsList',
+  async (_arg, { extra: api}) => {
+    const {data} = await api.get<TQuestsList>(APIRoute.QuestsList);
+    return data;
+  },
+);
+
+export const fetchQuestByIdAction = createAsyncThunk<TQuestFull, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchProductById',
+  async (id, { extra: api }) => {
+    const { data } = await api.get<TQuestFull>(`${APIRoute.QuestsList}/${id}`);
+    return data;
   },
 );

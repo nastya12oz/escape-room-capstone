@@ -11,6 +11,7 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 
 
 function App(): JSX.Element {
+
   return(
     <HelmetProvider>
       <Router>
