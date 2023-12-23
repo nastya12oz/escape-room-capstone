@@ -1,8 +1,47 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
+import BookingMap from '../../components/map/map-booking';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { getBookingPlaces } from '../../store/booking-process/booking-process.selectors';
+import { getQuest, getQuestErrorStatus, getQuestLoadingStatus } from '../../store/quests-data/quests-data.selectors';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { fetchBookingPlaceAction } from '../../store/api-actions';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+
 
 function BookingScreen(): JSX.Element {
+
+  const onSubmit = (evt) => evt.preventDefault();
+  const { register, handleSubmit } = useForm();
+
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
+  const isQuestLoading = useAppSelector(getQuestLoadingStatus);
+  const quest = useAppSelector(getQuest);
+  const hasQuestError = useAppSelector(getQuestErrorStatus);
+  const bookingPlaces = useAppSelector(getBookingPlaces);
+
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchBookingPlaceAction(id));
+    }
+  }, [id, dispatch]);
+
+  if(isQuestLoading) {
+    return(
+      <p> Loading...</p>
+    );
+  }
+
+  if(hasQuestError || !quest) {
+    return(<NotFoundScreen />);
+  }
+
+
   return(
     <div className="wrapper">
       <Header />
@@ -22,14 +61,9 @@ function BookingScreen(): JSX.Element {
             <p className="title title--size-m title--uppercase page-content__title">Маньяк</p>
           </div>
           <div className="page-content__item">
-            <div className="booking-map">
-              <div className="map">
-                <div className="map__container"></div>
-              </div>
-              <p className="booking-map__address">Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м. Петроградская</p>
-            </div>
+            <BookingMap places={bookingPlaces} />
           </div>
-          <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post">
+          <form className="booking-form" action="https://echo.htmlacademy.ru/" method="post" onSubmit={handleSubmit(onSubmit)}>
             <fieldset className="booking-form__section">
               <legend className="visually-hidden">Выбор даты и времени</legend>
               <fieldset className="booking-form__date-section">
@@ -87,7 +121,7 @@ function BookingScreen(): JSX.Element {
               <legend className="visually-hidden">Контактная информация</legend>
               <div className="custom-input booking-form__input">
                 <label className="custom-input__label" htmlFor="name">Ваше имя</label>
-                <input type="text" id="name" name="name" placeholder="Имя" required pattern="[А-Яа-яЁёA-Za-z'- ]{1,}" />
+                <input type="text" id="name" placeholder="Имя" required pattern="[А-Яа-яЁёA-Za-z'- ]{1,}" {...register('name', { required: true })} />
               </div>
               <div className="custom-input booking-form__input">
                 <label className="custom-input__label" htmlFor="tel">Контактный телефон</label>

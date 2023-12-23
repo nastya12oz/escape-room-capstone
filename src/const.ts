@@ -14,7 +14,8 @@ export enum AppRoute {
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
-  QuestsList ='/quest'
+  QuestsList ='/quest',
+  Booking = '/quest/:id/booking',
 }
 
 export enum AuthorizationStatus {
@@ -27,4 +28,17 @@ export enum NameSpace {
   User = 'USER',
   MyQuests = 'MY_QUESTS',
   Quests = 'QUESTS',
+  Booking = 'BOOKING'
 }
+
+export const Contacts = {
+  CITY: 'Санкт-Петербург',
+  ADDRESS: 'Набережная реки Карповка, д 5П',
+  WORKING_START: '10:00',
+  WORKING_END: '22:00',
+  TELEPHONE: '8 (000) 111-11-11',
+  EMAIL: 'info@escape-room.ru',
+  LAT: 59.968142,
+  LNG: 30.316425,
+  ZOOM: 10,
+};

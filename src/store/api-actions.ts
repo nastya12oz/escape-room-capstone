@@ -6,6 +6,7 @@ import { saveToken, dropToken } from '../sevices/token';
 import { redirectToRoute } from './action';
 import { TAuthData, TUserData } from '../types/user';
 import { TQuestsList, TQuestFull } from '../types/quest';
+import { BookingQuest } from '../types/booking';
 
 
 export const checkAuthAction = createAsyncThunk<TUserData, undefined, {
@@ -70,4 +71,16 @@ export const fetchQuestByIdAction = createAsyncThunk<TQuestFull, string, {
     const { data } = await api.get<TQuestFull>(`${APIRoute.QuestsList}/${id}`);
     return data;
   },
+);
+
+export const fetchBookingPlaceAction = createAsyncThunk<BookingQuest[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'review/fetchReviews',
+  async(id, {extra: api}) => {
+    const {data} = await api.get<BookingQuest[]>(APIRoute.Booking.replace(':id', id));
+    return data;
+  }
 );

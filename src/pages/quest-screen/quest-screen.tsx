@@ -66,7 +66,7 @@ function QuestScreen(): JSX.Element {
               </li>
             </ul>
             <p className="quest-page__description">{quest.description}</p>
-            <Link className="btn btn--accent btn--cta quest-page__btn" to={AppRoute.Booking}>Забронировать</Link>
+            <Link className="btn btn--accent btn--cta quest-page__btn" to={AppRoute.Booking.replace(':id', quest.id)}>Забронировать</Link>
           </div>
         </div>
       </main>
