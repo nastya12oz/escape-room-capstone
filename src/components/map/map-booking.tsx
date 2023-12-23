@@ -32,8 +32,6 @@ function BookingMap({places}: MapBookingProps):JSX.Element {
   const selectedPlace = useAppSelector(getSelectedPlace);
   const dispatch = useAppDispatch();
 
-  console.log(selectedPlace);
-
   const address = {
     lat: Contacts.LAT,
     lng: Contacts.LNG,

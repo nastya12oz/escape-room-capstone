@@ -1,12 +1,13 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NavigateFunction } from 'react-router-dom';
 import { AppRoute, APIRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
 import { saveToken, dropToken } from '../sevices/token';
 import { redirectToRoute } from './action';
 import { TAuthData, TUserData } from '../types/user';
 import { TQuestsList, TQuestFull } from '../types/quest';
-import { BookingQuest } from '../types/booking';
+import { TBookingQuest, TBookingData, TUserBookingData, TMyQuests } from '../types/booking';
 
 
 export const checkAuthAction = createAsyncThunk<TUserData, undefined, {
@@ -66,21 +67,45 @@ export const fetchQuestByIdAction = createAsyncThunk<TQuestFull, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchProductById',
+  'fetchQuestByIdAction',
   async (id, { extra: api }) => {
     const { data } = await api.get<TQuestFull>(`${APIRoute.QuestsList}/${id}`);
     return data;
   },
 );
 
-export const fetchBookingPlaceAction = createAsyncThunk<BookingQuest[], string, {
+export const fetchBookingPlaceAction = createAsyncThunk<TBookingQuest[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'review/fetchReviews',
+  'fetchBookingPlaceAction',
   async(id, {extra: api}) => {
-    const {data} = await api.get<BookingQuest[]>(APIRoute.Booking.replace(':id', id));
+    const {data} = await api.get<TBookingQuest[]>(APIRoute.Booking.replace(':id', id));
+    return data;
+  }
+);
+
+export const fetchSendBookingAction = createAsyncThunk<void, {currentData: TBookingData; navigate: NavigateFunction}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchSendBooking',
+  async({currentData, navigate}, {extra: api}) => {
+    await api.post<void>(APIRoute.Booking.replace(':id', currentData), currentData);
+    navigate(AppRoute.MyQuests);
+  }
+);
+
+export const fetchMyQuestsAction = createAsyncThunk<TMyQuests, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchMyQuests',
+  async(_arg, {extra: api}) => {
+    const {data} = await api.get<TMyQuests>(APIRoute.MyQuests);
     return data;
   }
 );

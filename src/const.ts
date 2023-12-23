@@ -16,6 +16,7 @@ export enum APIRoute {
   Logout = '/logout',
   QuestsList ='/quest',
   Booking = '/quest/:id/booking',
+  MyQuests = '/reservation'
 }
 
 export enum AuthorizationStatus {
