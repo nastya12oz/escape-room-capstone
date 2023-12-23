@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FormEvent } from 'react';
 import { TUserBookingData } from '../../types/booking';
 import { fetchSendBookingAction, fetchMyQuestsAction } from '../../store/api-actions';
+import { getBookingDateTime } from '../../utils/utils';
 
 type BookingFormProps = {
   placeId: string;
@@ -15,8 +16,6 @@ function BookingForm({placeId}: BookingFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  console.log('selectedPlace!!!', selectedPlace?.slots);
-
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const form = evt.currentTarget;
@@ -24,8 +23,8 @@ function BookingForm({placeId}: BookingFormProps): JSX.Element {
     const {children, date, contactPerson, person, phone} = Object.fromEntries(formData) as TUserBookingData;
 
     const currentData = {
-      date,
-      time,
+      date: getBookingDateTime(date).date,
+      time: getBookingDateTime(date).time,
       contactPerson,
       phone,
       withChildren: Boolean(children),
@@ -33,9 +32,9 @@ function BookingForm({placeId}: BookingFormProps): JSX.Element {
       placeId,
     };
 
-    dispatch(fetchSendBookingAction({currentData, navigate}));
+
+    dispatch(fetchSendBookingAction({currentData, placeId, navigate}));
     dispatch(fetchMyQuestsAction());
-    console.log(currentData);
   };
 
 
@@ -47,13 +46,13 @@ function BookingForm({placeId}: BookingFormProps): JSX.Element {
           <legend className="booking-form__date-title">Сегодня</legend>
           <div className="booking-form__date-inner-wrapper">
             {selectedPlace && selectedPlace.slots.today.map((slot, index) => (
-              <label className="custom-radio booking-form__date" key={`today-${index}`}>
+              <label className="custom-radio booking-form__date" key={`today-${index - 1}`}>
                 <input
                   type="radio"
                   id={`today${slot.time.replace(':', 'h')}m`}
                   name="date"
                   required
-                  value={`today-${slot.time}`}
+                  value={`today${slot.time}`}
                   disabled={!slot.isAvailable}
                   defaultChecked={index === 0 && slot.isAvailable}
                 />
@@ -67,15 +66,15 @@ function BookingForm({placeId}: BookingFormProps): JSX.Element {
           <legend className="booking-form__date-title">Завтра</legend>
           <div className="booking-form__date-inner-wrapper">
             {selectedPlace && selectedPlace.slots.tomorrow.map((slot, index) => (
-              <label className="custom-radio booking-form__date" key={`tomorrow-${index}`}>
+              <label className="custom-radio booking-form__date" key={`tomorrow-${index + 1}`}>
                 <input
                   type="radio"
                   id={`tomorrow${slot.time.replace(':', 'h')}m`}
                   name="date"
                   required
-                  value={`tomorrow-${slot.time}`}
+                  value={`tomorrow${slot.time}`}
                   disabled={!slot.isAvailable}
-                  defaultChecked={index === 0 && slot.isAvailable} // This checks the first available slot by default
+                  defaultChecked={index === 0 && slot.isAvailable}
                 />
                 <span className="custom-radio__label">{slot.time}</span>
               </label>
@@ -87,11 +86,11 @@ function BookingForm({placeId}: BookingFormProps): JSX.Element {
         <legend className="visually-hidden">Контактная информация</legend>
         <div className="custom-input booking-form__input">
           <label className="custom-input__label" htmlFor="name">Ваше имя</label>
-          <input type="text" id="name" placeholder="Имя" required pattern="[А-Яа-яЁёA-Za-z'- ]{1,}" />
+          <input type="text" id="name" placeholder="Имя" name="contactPerson" required />
         </div>
         <div className="custom-input booking-form__input">
           <label className="custom-input__label" htmlFor="tel">Контактный телефон</label>
-          <input type="tel" id="tel" name="tel" placeholder="Телефон" required pattern="[0-9]{10,}" />
+          <input type="tel" id="tel" name="phone" placeholder="Телефон" required pattern="[0-9]{10,}" />
         </div>
         <div className="custom-input booking-form__input">
           <label className="custom-input__label" htmlFor="person">Количество участников</label>

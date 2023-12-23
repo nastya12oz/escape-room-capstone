@@ -7,7 +7,7 @@ import { saveToken, dropToken } from '../sevices/token';
 import { redirectToRoute } from './action';
 import { TAuthData, TUserData } from '../types/user';
 import { TQuestsList, TQuestFull } from '../types/quest';
-import { TBookingQuest, TBookingData, TUserBookingData, TMyQuests } from '../types/booking';
+import { TBookingQuest, TBookingData, TMyQuests } from '../types/booking';
 
 
 export const checkAuthAction = createAsyncThunk<TUserData, undefined, {
@@ -86,14 +86,14 @@ export const fetchBookingPlaceAction = createAsyncThunk<TBookingQuest[], string,
   }
 );
 
-export const fetchSendBookingAction = createAsyncThunk<void, {currentData: TBookingData; navigate: NavigateFunction}, {
+export const fetchSendBookingAction = createAsyncThunk<void, {currentData: TBookingData; placeId: string; navigate: NavigateFunction}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchSendBooking',
-  async({currentData, navigate}, {extra: api}) => {
-    await api.post<void>(APIRoute.Booking.replace(':id', currentData), currentData);
+  async({currentData, placeId, navigate}, {extra: api}) => {
+    await api.post<void>(APIRoute.Booking.replace(':id', placeId), currentData);
     navigate(AppRoute.MyQuests);
   }
 );

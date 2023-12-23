@@ -10,6 +10,11 @@ type Location = {
   coords: number[];
 }
 
+// enum TDay {
+//   Today = 'today',
+//   Tomorrow = 'tomorrow',
+// }
+
 export type TBookingQuest = {
   id: string;
   location: Location;
@@ -20,7 +25,7 @@ export type TBookingQuest = {
 };
 
 export type TBookingData = {
-  date: TBookingQuest;
+  date: string;
   time: string;
   contactPerson: string;
   phone: string;
