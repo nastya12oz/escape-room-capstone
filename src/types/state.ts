@@ -1,7 +1,7 @@
 import { store } from '../store';
 import { AuthorizationStatus } from '../const';
 import { TQuestsList, TQuestFull } from './quest';
-import { BookingQuest } from './booking';
+import { TBookingQuest, TBookingQuests, TUserQuests } from './booking';
 
 
 export type State = ReturnType<typeof store.getState>;
@@ -23,8 +23,16 @@ export type QuestsData = {
 }
 
 export type BookingProcess = {
-  bookingPlaces: BookingQuest[];
+  bookingPlaces: TBookingQuests;
   isPlacesLoading: boolean;
   hasPlacesError: boolean;
-  selectedPlace: BookingQuest | null;
+  selectedPlace: TBookingQuest | null;
+}
+
+export type UserQuestsProcess = {
+  userQuests: TUserQuests;
+  isUserQuestsQuestsLoading: boolean;
+  hasUserQuestsError: boolean;
+  hasDeleteUserQuestError: boolean;
+  isDeleting: boolean;
 }

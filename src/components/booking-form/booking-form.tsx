@@ -3,7 +3,7 @@ import { getSelectedPlace } from '../../store/booking-process/booking-process.se
 import { useNavigate } from 'react-router-dom';
 import { FormEvent } from 'react';
 import { TUserBookingData } from '../../types/booking';
-import { fetchSendBookingAction, fetchMyQuestsAction } from '../../store/api-actions';
+import { fetchSendBookingAction, fetchUserQuestsAction } from '../../store/api-actions';
 import { getBookingDateTime } from '../../utils/utils';
 
 type BookingFormProps = {
@@ -34,7 +34,7 @@ function BookingForm({placeId}: BookingFormProps): JSX.Element {
 
 
     dispatch(fetchSendBookingAction({currentData, placeId, navigate}));
-    dispatch(fetchMyQuestsAction());
+    dispatch(fetchUserQuestsAction());
   };
 
 

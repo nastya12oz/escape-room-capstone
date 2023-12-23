@@ -1,14 +1,17 @@
 import { TQuest } from '../../types/quest';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
+import { ReactNode } from 'react';
 
 
 type QuestCardProps = {
   questCard: TQuest;
+  children?: ReactNode;
+  count?: number;
 }
 
 
-function QuestCard({questCard}: QuestCardProps): JSX. Element {
+function QuestCard({questCard, children, count}: QuestCardProps): JSX. Element {
 
   return(
     <div className="quest-card">
@@ -32,6 +35,7 @@ function QuestCard({questCard}: QuestCardProps): JSX. Element {
             </svg>{questCard.level}
           </li>
         </ul>
+        {children}
       </div>
     </div>
   );

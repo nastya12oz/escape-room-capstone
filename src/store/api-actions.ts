@@ -7,7 +7,7 @@ import { saveToken, dropToken } from '../sevices/token';
 import { redirectToRoute } from './action';
 import { TAuthData, TUserData } from '../types/user';
 import { TQuestsList, TQuestFull } from '../types/quest';
-import { TBookingQuest, TBookingData, TMyQuests } from '../types/booking';
+import { TBookingQuest, TBookingData, TUserQuests } from '../types/booking';
 
 
 export const checkAuthAction = createAsyncThunk<TUserData, undefined, {
@@ -98,14 +98,26 @@ export const fetchSendBookingAction = createAsyncThunk<void, {currentData: TBook
   }
 );
 
-export const fetchMyQuestsAction = createAsyncThunk<TMyQuests, undefined, {
+export const fetchUserQuestsAction = createAsyncThunk<TUserQuests, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchMyQuests',
+  'fetchUserQuests',
   async(_arg, {extra: api}) => {
-    const {data} = await api.get<TMyQuests>(APIRoute.MyQuests);
+    const {data} = await api.get<TUserQuests>(APIRoute.UserQuests);
     return data;
+  }
+);
+
+export const fetchDeleteUserQuestAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchDeleteUserQuest',
+  async(id, {dispatch, extra: api}) => {
+    await api.delete<void>(`${APIRoute.UserQuests}/${id}`);
+    dispatch(fetchUserQuestsAction());
   }
 );

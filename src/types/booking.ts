@@ -24,6 +24,8 @@ export type TBookingQuest = {
   };
 };
 
+export type TBookingQuests = TBookingQuest[];
+
 export type TBookingData = {
   date: string;
   time: string;
@@ -47,7 +49,7 @@ enum BookingDays {
   Tomorrow = 'tomorrow',
 }
 
-export type TMyQuest = {
+export type TUserQuest = {
 
     date: BookingDays;
     time: string;
@@ -60,4 +62,4 @@ export type TMyQuest = {
     quest: TQuest;
 }
 
-export type TMyQuests = TMyQuest[];
+export type TUserQuests = TUserQuest[];
