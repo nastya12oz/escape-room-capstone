@@ -5,61 +5,66 @@ export type TimeAvailable = {
   isAvailable: boolean;
 }
 
-type Location = {
+type TLocation = {
   address: string;
   coords: number[];
 }
 
-// enum TDay {
-//   Today = 'today',
-//   Tomorrow = 'tomorrow',
-// }
-
-export type TBookingQuest = {
-  id: string;
-  location: Location;
-  slots: {
-    today: TimeAvailable[];
-     tomorrow: TimeAvailable[];
-  };
-};
-
-export type TBookingQuests = TBookingQuest[];
-
-export type TBookingData = {
-  date: string;
-  time: string;
-  contactPerson: string;
-  phone: string;
-  withChildren: boolean;
-  peopleCount: number;
-  placeId: string;
-}
-
-export type TUserBookingData = {
-  children: string;
-  date: string;
-  contactPerson: string;
-  person: string;
-  phone: string;
-};
-
-enum BookingDays {
+enum TBookingDays {
   Today = 'today',
   Tomorrow = 'tomorrow',
 }
 
 export type TUserQuest = {
 
-    date: BookingDays;
+    date: TBookingDays;
     time: string;
     contactPerson: string;
     phone: string;
     withChildren: boolean;
     peopleCount: number;
     id: string;
-    location: Location;
+    location: TLocation;
     quest: TQuest;
 }
 
 export type TUserQuests = TUserQuest[];
+
+export enum TBookingDay {
+  Today = 'today',
+  Tomorrow = 'tomorrow',
+}
+
+export type TSlot = {
+  time: string;
+  isAvailable: boolean;
+}
+
+export type TBookingPlace = {
+  id: string;
+  location: TLocation;
+  slots: {
+    today: TSlot[];
+     tomorrow: TSlot[];
+  };
+}
+
+export type TBookingPlaces = TBookingPlace[];
+
+export type TBookingData = {
+date: TBookingDay;
+time: string;
+contactPerson: string;
+phone: string;
+withChildren: boolean;
+peopleCount: number;
+placeId: string;
+}
+
+export type TCurrentFormData = {
+  children: string;
+  date: string;
+  contactPerson: string;
+  person: string;
+  phone: string;
+}

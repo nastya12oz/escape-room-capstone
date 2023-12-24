@@ -2,7 +2,7 @@ import 'leaflet/dist/leaflet.css';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import { useEffect } from 'react';
 import useMap from '../../hooks/use-map';
-import { TBookingQuest } from '../../types/booking';
+import { TBookingPlaces, TBookingPlace } from '../../types/booking';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import iconActive from './pin-active.svg';
 import iconDefault from './pin-default.svg';
@@ -25,7 +25,7 @@ const activePin = new Icon({
 
 
 type MapBookingProps = {
-  places: TBookingQuest[];
+  places: TBookingPlaces;
 }
 
 function BookingMap({places}: MapBookingProps):JSX.Element {
@@ -43,7 +43,7 @@ function BookingMap({places}: MapBookingProps):JSX.Element {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
 
-      const createMarker = (point: TBookingQuest) => {
+      const createMarker = (point: TBookingPlace) => {
         const [lat, lng] = point.location.coords;
 
         const marker = new Marker({

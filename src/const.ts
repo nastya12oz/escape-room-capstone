@@ -1,4 +1,4 @@
-export const BACKEND_URL = 'https://grading.design.htmlacademy.pro/v1/escape-room/';
+export const BACKEND_URL = 'https://grading.design.pages.academy/v1/escape-room/';
 export const REQUEST_TIMEOUT = 5000;
 
 

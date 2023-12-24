@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { BookingProcess } from '../../types/state';
 import { fetchBookingPlaceAction } from '../api-actions';
-import { BookingQuest } from '../../types/booking';
+import { TBookingPlace } from '../../types/booking';
 
 const initialState: BookingProcess = {
   bookingPlaces: [],
@@ -15,7 +15,7 @@ export const bookingProcess = createSlice({
   name: NameSpace.Quests,
   initialState,
   reducers: {
-    setSelectedPlace: (state, action: PayloadAction<BookingQuest>) => {
+    setSelectedPlace: (state, action: PayloadAction<TBookingPlace>) => {
       state.selectedPlace = action.payload;
     },
   },

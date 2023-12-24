@@ -7,7 +7,7 @@ import { saveToken, dropToken } from '../sevices/token';
 import { redirectToRoute } from './action';
 import { TAuthData, TUserData } from '../types/user';
 import { TQuestsList, TQuestFull } from '../types/quest';
-import { TBookingQuest, TBookingData, TUserQuests } from '../types/booking';
+import { TBookingPlaces, TBookingData, TUserQuests } from '../types/booking';
 
 
 export const checkAuthAction = createAsyncThunk<TUserData, undefined, {
@@ -74,29 +74,30 @@ export const fetchQuestByIdAction = createAsyncThunk<TQuestFull, string, {
   },
 );
 
-export const fetchBookingPlaceAction = createAsyncThunk<TBookingQuest[], string, {
+export const fetchBookingPlaceAction = createAsyncThunk<TBookingPlaces, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchBookingPlaceAction',
   async(id, {extra: api}) => {
-    const {data} = await api.get<TBookingQuest[]>(APIRoute.Booking.replace(':id', id));
+    const {data} = await api.get<TBookingPlaces>(APIRoute.Booking.replace(':id', id));
     return data;
   }
 );
 
-export const fetchSendBookingAction = createAsyncThunk<void, {currentData: TBookingData; placeId: string; navigate: NavigateFunction}, {
+export const fetchSendBookingAction = createAsyncThunk<void, {currentData: TBookingData; id:string; navigate: NavigateFunction}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchSendBooking',
-  async({currentData, placeId, navigate}, {extra: api}) => {
-    await api.post<void>(APIRoute.Booking.replace(':id', placeId), currentData);
+  async({currentData, id, navigate}, {extra: api}) => {
+    await api.post<void>(APIRoute.Booking.replace(':id', id), currentData);
     navigate(AppRoute.MyQuests);
   }
 );
+
 
 export const fetchUserQuestsAction = createAsyncThunk<TUserQuests, undefined, {
   dispatch: AppDispatch;

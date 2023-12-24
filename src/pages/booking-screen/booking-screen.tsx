@@ -25,6 +25,7 @@ function BookingScreen(): JSX.Element {
   useEffect(() => {
     if (id) {
       dispatch(fetchBookingPlaceAction(id));
+
     }
   }, [id, dispatch]);
 
@@ -58,8 +59,8 @@ function BookingScreen(): JSX.Element {
             <p className="title title--size-m title--uppercase page-content__title">{quest.title}</p>
           </div>
           <div className="page-content__item">
-            <BookingMap places={bookingPlaces} />
-            <BookingFrom placeId={quest.id} />
+            {bookingPlaces && <BookingMap places={bookingPlaces} />}
+            <BookingFrom id={quest.id} />
           </div>
         </div>
       </main>
