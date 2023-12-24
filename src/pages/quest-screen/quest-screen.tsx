@@ -8,6 +8,8 @@ import { getQuestErrorStatus, getQuestLoadingStatus } from '../../store/quests-d
 import { getQuest } from '../../store/quests-data/quests-data.selectors';
 import { useEffect } from 'react';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 
 function QuestScreen(): JSX.Element {
@@ -64,7 +66,7 @@ function QuestScreen(): JSX.Element {
               </li>
             </ul>
             <p className="quest-page__description">{quest.description}</p>
-            <a className="btn btn--accent btn--cta quest-page__btn" href="booking.html">Забронировать</a>
+            <Link className="btn btn--accent btn--cta quest-page__btn" to={AppRoute.Booking.replace(':id', quest.id)}>Забронировать</Link>
           </div>
         </div>
       </main>

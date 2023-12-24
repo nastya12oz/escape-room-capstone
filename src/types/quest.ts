@@ -1,10 +1,10 @@
-enum Allowed {
+export enum Allowed {
   Easy = 'easy',
   Medium = 'medium',
   Hard = 'hard',
 }
 
-enum Type {
+export enum Type {
   Adventures = 'adventures',
   Horror = 'horror',
   Mystic = 'mystic',
