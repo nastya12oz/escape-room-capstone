@@ -8,3 +8,17 @@ export function getFormDateTime(data: string) {
     time: data.slice(-5),
   };
 }
+
+export const getIconName = (type: string) => {
+  if (type === 'adventures') {
+    return 'adventure';
+  }
+  return type;
+};
+
+export const getMiddleLevel = (level: string) => {
+  if(level === 'medium') {
+    return 'middle';
+  }
+  return level;
+};

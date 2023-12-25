@@ -1,10 +1,12 @@
-export enum Allowed {
+export enum TLevel {
+  All = 'any',
   Easy = 'easy',
   Medium = 'medium',
   Hard = 'hard',
 }
 
-export enum Type {
+export enum TQuestType {
+  All = 'all-quests',
   Adventures = 'adventures',
   Horror = 'horror',
   Mystic = 'mystic',
@@ -17,8 +19,8 @@ export type TQuest = {
   title: string;
   previewImg: string;
   previewImgWebp: string;
-  level: Allowed;
-  type: Type;
+  level: TLevel;
+  type: TQuestType;
   peopleMinMax: [number, number];
 }
 
@@ -30,8 +32,8 @@ export type TQuestFull = {
     title: string;
     previewImg: string;
     previewImgWebp: string;
-    level: Allowed;
-    type: Type;
+    level: TLevel;
+    type: TQuestType;
     peopleMinMax: [number];
     description: string;
     coverImg: string;
