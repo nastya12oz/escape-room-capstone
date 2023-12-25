@@ -1,3 +1,5 @@
+import { TLevel, TQuestType } from './types/quest';
+
 export const BACKEND_URL = 'https://grading.design.pages.academy/v1/escape-room/';
 export const REQUEST_TIMEOUT = 5000;
 
@@ -42,4 +44,20 @@ export const Contacts = {
   LAT: 59.968142,
   LNG: 30.316425,
   ZOOM: 10,
+};
+
+export const displayedLevel = {
+  [TLevel.All]: 'Любой',
+  [TLevel.Easy]: 'Лёгкий',
+  [TLevel.Medium]: 'Средний',
+  [TLevel.Hard]: 'Сложный'
+};
+
+export const displayedQuestType = {
+  [TQuestType.All]: 'Все квесты',
+  [TQuestType.Adventures]: 'Приключения',
+  [TQuestType.Horror]: 'Ужасы',
+  [TQuestType.Mystic]: 'Мистика',
+  [TQuestType.Detective]: 'Детектив',
+  [TQuestType.SciFi]: 'Sci-fi',
 };

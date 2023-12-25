@@ -2,6 +2,7 @@ import { TQuest } from '../../types/quest';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import { ReactNode } from 'react';
+import { displayedLevel } from '../../const';
 
 
 type QuestCardProps = {
@@ -32,7 +33,7 @@ function QuestCard({questCard, children, count}: QuestCardProps): JSX. Element {
           <li className="tags__item">
             <svg width={14} height={14} aria-hidden="true">
               <use xlinkHref="#icon-level"></use>
-            </svg>{questCard.level}
+            </svg>{displayedLevel[questCard.level]}
           </li>
         </ul>
         {children}

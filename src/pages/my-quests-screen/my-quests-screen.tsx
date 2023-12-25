@@ -6,7 +6,7 @@ import QuestCard from '../../components/quest-card/quest-card';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { getUserQuests, getUserQuestsErrorStatus, getUserQuestsLoadingStatus } from '../../store/user-quests-process/user-quests-process.selector';
-
+import CancelButton from '../../components/cancel-btn/cancel-btn';
 
 function MyQuestsScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -45,8 +45,7 @@ function MyQuestsScreen(): JSX.Element {
             <h1 className="title title--size-m page-content__title">Мои бронирования</h1>
           </div>
           <div className="cards-grid">
-            {userQuests.map((userQuest) => <QuestCard key={userQuest.id} questCard={userQuest.quest}/>)}
-
+            {userQuests.map((userQuest) => <QuestCard key={userQuest.id} questCard={userQuest.quest}> {<CancelButton id={userQuest.id}/>} </QuestCard>)}
           </div>
         </div>
       </main>

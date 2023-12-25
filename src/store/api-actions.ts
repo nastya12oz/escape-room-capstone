@@ -98,7 +98,6 @@ export const fetchSendBookingAction = createAsyncThunk<void, {currentData: TBook
   }
 );
 
-
 export const fetchUserQuestsAction = createAsyncThunk<TUserQuests, undefined, {
   dispatch: AppDispatch;
   state: State;

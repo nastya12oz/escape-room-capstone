@@ -1,18 +1,23 @@
 import QuestCard from '../quest-card/quest-card';
-import { useAppSelector } from '../../hooks';
-import { getQuestsList } from '../../store/quests-data/quests-data.selectors';
+import { TQuestsList } from '../../types/quest';
 
-function QuestCardsList(): JSX.Element {
-  const questsList = useAppSelector(getQuestsList);
 
+type QuestCardsListProps = {
+  questsList: TQuestsList;
+}
+
+
+function QuestCardsList({questsList}: QuestCardsListProps): JSX.Element {
   return (
     <>
-      {questsList.map((quest) => (
-        <QuestCard questCard={quest} key={quest.id} />
-      ))}
+      <h2 className="title visually-hidden">Выберите квест</h2>
+      <div className="cards-grid">
+        {questsList.map((quest) => (
+          <QuestCard questCard={quest} key={quest.id} />
+        ))}
+      </div>
     </>
   );
 }
-
 
 export default QuestCardsList;
