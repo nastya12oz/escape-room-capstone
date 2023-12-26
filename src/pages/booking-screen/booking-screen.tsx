@@ -61,7 +61,7 @@ function BookingScreen(): JSX.Element {
           </div>
           <div className="page-content__item">
             {bookingPlaces && <MapBooking places={bookingPlaces} />}
-            <BookingFrom id={quest.id} />
+            <BookingFrom id={quest.id} peopleMinMax={quest.peopleMinMax} />
           </div>
         </div>
       </main>

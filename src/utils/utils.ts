@@ -9,6 +9,30 @@ export function getFormDateTime(data: string) {
   };
 }
 
+export function validateName(value: string) {
+  if (
+    !value ||
+      !/[А-Яа-яЁёA-Za-z]{1,}/.test(value) ||
+      false
+  ) {
+    return 'Please provide your correct name';
+  }
+
+  return true;
+}
+
+export function validatePhoneNumber(value: string) {
+  if (
+    !value ||
+      !/[0-9]{10,}/.test(value) ||
+      false
+  ) {
+    return 'Please provide your correct phone number';
+  }
+
+  return true;
+}
+
 export const getIconName = (type: string) => {
   if (type === 'adventures') {
     return 'adventure';
