@@ -1,27 +1,26 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getSelectedPlace } from '../../store/booking-process/booking-process.selectors';
-//import { useForm } from 'react-hook-form';
-import { FormEvent } from 'react';
-import { getFormDateTime } from '../../utils/utils';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { getFormDateTime, validateName, validatePhoneNumber } from '../../utils/utils';
 import { TBookingData, TCurrentFormData } from '../../types/booking';
 import { fetchSendBookingAction, fetchUserQuestsAction } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
 
 type BookingFormProps = {
   id: string;
+  peopleMinMax: number[];
 }
 
-function BookingForm({id}: BookingFormProps): JSX.Element {
-  //const { register, handleSubmit } = useForm();
+function BookingForm({id, peopleMinMax}: BookingFormProps): JSX.Element {
   const selectedPlace = useAppSelector(getSelectedPlace);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    const form = evt.currentTarget;
-    const formData = new FormData(form);
-    const {children, date, contactPerson, person, phone} = Object.fromEntries(formData) as TCurrentFormData;
+  const { register, handleSubmit, formState: { errors } } = useForm<TCurrentFormData>();
+
+  const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
+
+    const {children, date, contactPerson, person, phone} = data as TCurrentFormData;
 
     const currentData = {
       date: getFormDateTime(date).date,
@@ -42,7 +41,9 @@ function BookingForm({id}: BookingFormProps): JSX.Element {
       className="booking-form"
       action="https://echo.htmlacademy.ru/"
       method="post"
-      onSubmit={handleFormSubmit}
+      onSubmit={(evt) => {
+        handleSubmit(handleFormSubmit)(evt);
+      }}
     >
       <fieldset className="booking-form__section">
         <legend className="visually-hidden">Выбор даты и времени</legend>
@@ -51,7 +52,14 @@ function BookingForm({id}: BookingFormProps): JSX.Element {
           <div className="booking-form__date-inner-wrapper">
             {selectedPlace && selectedPlace.slots.today.map((slot) => (
               <label className="custom-radio booking-form__date" key={slot.time}>
-                <input type="radio" id={`today${slot.time}`} name="date" required value={`today${slot.time}`} disabled={!slot.isAvailable}/>
+                <input
+                  type="radio"
+                  id={`today${slot.time}`}
+                  value={`today${slot.time}`}
+                  disabled={!slot.isAvailable}
+                  {...register('date',
+                    { required: 'Обязательное поле' })}
+                />
                 <span className="custom-radio__label">{slot.time}</span>
               </label>
             ))}
@@ -62,7 +70,14 @@ function BookingForm({id}: BookingFormProps): JSX.Element {
           <div className="booking-form__date-inner-wrapper">
             {selectedPlace && selectedPlace.slots.tomorrow.map((slot) => (
               <label className="custom-radio booking-form__date" key={slot.time}>
-                <input type="radio" id={`tomorrow${slot.time}`} name="date" required value={`tomorrow${slot.time}`} disabled={!slot.isAvailable}/>
+                <input
+                  type="radio"
+                  id={`tomorrow${slot.time}`}
+                  value={`tomorrow${slot.time}`}
+                  disabled={!slot.isAvailable}
+                  {...register('date',
+                    { required: 'Обязательное поле' })}
+                />
                 <span className="custom-radio__label">{slot.time}</span>
               </label>
             ))}
@@ -72,19 +87,61 @@ function BookingForm({id}: BookingFormProps): JSX.Element {
       <fieldset className="booking-form__section">
         <legend className="visually-hidden">Контактная информация</legend>
         <div className="custom-input booking-form__input">
-          <label className="custom-input__label" htmlFor="name">Ваше имя</label>
-          <input type="text" id="name" name="contactPerson" placeholder="Имя" required pattern="[А-Яа-яЁёA-Za-z'- ]{1,}"/>
+          <label htmlFor="name">Ваше имя</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Имя"
+            {...register('contactPerson', {
+              required: 'Имя обязательно.',
+              validate: {
+                validateName
+              }
+            })}
+          />
+          {errors.contactPerson && <p>{errors.contactPerson.message}</p>}
         </div>
         <div className="custom-input booking-form__input">
-          <label className="custom-input__label" htmlFor="tel">Контактный телефон</label>
-          <input type="tel" id="tel" name="phone" placeholder="Телефон" required pattern="[0-9]{10,}"/>
+          <label htmlFor="tel">Контактный телефон</label>
+          <input
+            type="tel"
+            id="tel"
+            placeholder="Телефон"
+            {...register('phone', {
+              required: 'Телефон обязателен.',
+              validate: {
+                validatePhoneNumber
+              }
+            })}
+          />
+          {errors.phone && <p>{errors.phone.message}</p>}
         </div>
         <div className="custom-input booking-form__input">
-          <label className="custom-input__label" htmlFor="person">Количество участников</label>
-          <input type="number" id="person" name="person" placeholder="Количество участников" required/>
+          <label htmlFor="person">Количество участников</label>
+          <input
+            type="number"
+            id="person"
+            placeholder="Количество участников"
+            {...register('person', {
+              required: 'Укажите количество участников.',
+              min: {
+                value:peopleMinMax[0],
+                message: `Min ${peopleMinMax[0]} people`
+              },
+              max: {
+                value:peopleMinMax[1],
+                message: `Max ${peopleMinMax[1]} people`
+              },
+            })}
+          />
+          {errors.person && <p>{errors.person.message}</p>}
         </div>
         <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--children">
-          <input type="checkbox" id="children" name="children"/>
+          <input
+            type="checkbox"
+            id="children"
+            {...register('children')}
+          />
           <span className="custom-checkbox__icon">
             <svg width={20} height={17} aria-hidden="true">
               <use xlinkHref="#icon-tick"></use>

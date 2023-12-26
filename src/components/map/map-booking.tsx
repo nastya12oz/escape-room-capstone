@@ -28,7 +28,7 @@ type MapBookingProps = {
   places: TBookingPlaces;
 }
 
-function BookingMap({places}: MapBookingProps):JSX.Element {
+function MapBooking({places}: MapBookingProps):JSX.Element {
   const selectedPlace = useAppSelector(getSelectedPlace);
   const dispatch = useAppDispatch();
 
@@ -83,4 +83,4 @@ function BookingMap({places}: MapBookingProps):JSX.Element {
   );
 }
 
-export default BookingMap;
+export default MapBooking;

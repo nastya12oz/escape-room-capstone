@@ -28,7 +28,7 @@ function QuestCard({questCard, children, count}: QuestCardProps): JSX. Element {
           <li className="tags__item">
             <svg width="11" height={14} aria-hidden="true">
               <use xlinkHref="#icon-person"></use>
-            </svg>2&ndash;3&nbsp;чел
+            </svg>{questCard.peopleMinMax[0]}&ndash;{questCard.peopleMinMax[1]}&nbsp;чел
           </li>
           <li className="tags__item">
             <svg width={14} height={14} aria-hidden="true">
