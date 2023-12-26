@@ -4,7 +4,6 @@ import { NavigateFunction } from 'react-router-dom';
 import { AppRoute, APIRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
 import { saveToken, dropToken } from '../sevices/token';
-import { redirectToRoute } from './action';
 import { TAuthData, TUserData } from '../types/user';
 import { TQuestsList, TQuestFull } from '../types/quest';
 import { TBookingPlaces, TBookingData, TUserQuests } from '../types/booking';
@@ -29,10 +28,9 @@ state: State;
 extra: AxiosInstance;
 }>(
   'login',
-  async ({email, password}, {dispatch, extra: api}) => {
+  async ({email, password}, { extra: api}) => {
     const {data} = await api.post<TUserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
-    dispatch(redirectToRoute(AppRoute.Main));
     return data;
   },
 );
