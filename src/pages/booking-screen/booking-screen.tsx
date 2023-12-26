@@ -8,7 +8,7 @@ import { getQuest, getQuestErrorStatus, getQuestLoadingStatus } from '../../stor
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchBookingPlaceAction } from '../../store/api-actions';
-import BookingMap from '../../components/map/map-booking';
+import MapBooking from '../../components/map/map-booking';
 import BookingFrom from '../../components/booking-form/booking-form';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
@@ -21,6 +21,7 @@ function BookingScreen(): JSX.Element {
   const quest = useAppSelector(getQuest);
   const hasQuestError = useAppSelector(getQuestErrorStatus);
   const bookingPlaces = useAppSelector(getBookingPlaces);
+
 
   useEffect(() => {
     if (id) {
@@ -59,7 +60,7 @@ function BookingScreen(): JSX.Element {
             <p className="title title--size-m title--uppercase page-content__title">{quest.title}</p>
           </div>
           <div className="page-content__item">
-            {bookingPlaces && <BookingMap places={bookingPlaces} />}
+            {bookingPlaces && <MapBooking places={bookingPlaces} />}
             <BookingFrom id={quest.id} />
           </div>
         </div>

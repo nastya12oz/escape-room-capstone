@@ -1,6 +1,7 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import { Helmet } from 'react-helmet-async';
+import MapContacts from '../../components/map/map-contacts';
 
 function ConactsScreen(): JSX.Element {
   return(
@@ -46,10 +47,7 @@ function ConactsScreen(): JSX.Element {
                 </dd>
               </div>
             </dl>
-            <div className="contacts__map">
-              <div className="map">
-              </div>
-            </div>
+            <MapContacts />
           </div>
         </div>
       </main>

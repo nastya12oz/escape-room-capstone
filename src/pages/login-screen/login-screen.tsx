@@ -52,11 +52,6 @@ function LoginScreen(): JSX.Element {
         </div>
         <div className="container container--size-l">
           <div className="login__form">
-            {errorMessage && (
-              <div>
-                <p>{errorMessage}</p>
-              </div>
-            )}
             <form className="login-form" action="https://echo.htmlacademy.ru/" method="post" onSubmit={handleSubmit}>
               <div className="login-form__inner-wrapper">
                 <h1 className="title title--size-s login-form__title">Вход</h1>
@@ -71,6 +66,11 @@ function LoginScreen(): JSX.Element {
                   </div>
                 </div>
                 <button className="btn btn--accent btn--general login-form__submit" type="submit">Войти</button>
+                {errorMessage && (
+                  <div>
+                    <p>{errorMessage}</p>
+                  </div>
+                )}
               </div>
               <label className="custom-checkbox login-form__checkbox">
                 <input type="checkbox" id="id-order-agreement" name="user-agreement" required />

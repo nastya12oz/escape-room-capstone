@@ -17,6 +17,7 @@ function BookingForm({id}: BookingFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const form = evt.currentTarget;

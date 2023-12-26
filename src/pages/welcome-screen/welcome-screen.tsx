@@ -11,10 +11,10 @@ import { getQuestsList } from '../../store/quests-data/quests-data.selectors';
 
 function WelcomeScreen(): JSX.Element {
   const questsList = useAppSelector(getQuestsList);
+  console.log(questsList);
 
   const [selectedType, setSelectedType] = useState<TQuestType | null>(TQuestType.All);
   const [selectedLevel, setSelectedLevel] = useState<TLevel | null>(TLevel.All);
-
 
   const filteredQuests = questsList.filter((quest) => {
     const typeMatches = selectedType === TQuestType.All || quest.type === selectedType;
