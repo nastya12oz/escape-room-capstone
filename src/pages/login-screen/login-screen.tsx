@@ -3,7 +3,7 @@ import Footer from '../../components/footer/footer';
 import { Helmet } from 'react-helmet-async';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { validatePassword } from '../../utils/utils';
+import { validatePassword, validateEmail } from '../../utils/utils';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
@@ -70,7 +70,11 @@ function LoginScreen(): JSX.Element {
                       id="email"
                       placeholder="Адрес электронной почты"
                       {...register('email',
-                        { required: 'Обязательное поле' })}
+                        { required: 'Обязательное поле',
+                          validate: {
+                            validateEmail
+                          }
+                        })}
                     />
                   </div>
                   <div className="custom-input login-form__input">

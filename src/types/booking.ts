@@ -10,7 +10,7 @@ type TLocation = {
   coords: number[];
 }
 
-enum TBookingDays {
+export enum TBookingDays {
   Today = 'today',
   Tomorrow = 'tomorrow',
 }
@@ -30,11 +30,6 @@ export type TUserQuest = {
 
 export type TUserQuests = TUserQuest[];
 
-export enum TBookingDay {
-  Today = 'today',
-  Tomorrow = 'tomorrow',
-}
-
 export type TSlot = {
   time: string;
   isAvailable: boolean;
@@ -52,7 +47,7 @@ export type TBookingPlace = {
 export type TBookingPlaces = TBookingPlace[];
 
 export type TBookingData = {
-date: TBookingDay;
+date: TBookingDays;
 time: string;
 contactPerson: string;
 phone: string;

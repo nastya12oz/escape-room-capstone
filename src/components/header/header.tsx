@@ -3,8 +3,9 @@ import HeaderNoAuth from './header-no-auth';
 import { AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
 import { useAppSelector } from '../../hooks';
+import { memo } from 'react';
 
-function Header(): JSX.Element {
+function HeaderRaw(): JSX.Element {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
@@ -13,5 +14,7 @@ function Header(): JSX.Element {
     isAuthorized ? <HeaderAuth /> : <HeaderNoAuth />
   );
 }
+
+const Header = memo(HeaderRaw);
 
 export default Header;

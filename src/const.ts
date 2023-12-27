@@ -1,4 +1,5 @@
 import { TLevel, TQuestType } from './types/quest';
+import { TBookingDays } from './types/booking';
 
 export const BACKEND_URL = 'https://grading.design.pages.academy/v1/escape-room/';
 export const REQUEST_TIMEOUT = 5000;
@@ -60,4 +61,19 @@ export const displayedQuestType = {
   [TQuestType.Mystic]: 'Мистика',
   [TQuestType.Detective]: 'Детектив',
   [TQuestType.SciFi]: 'Sci-fi',
+};
+
+export const displayedDay = {
+  [TBookingDays.Today]: 'сегодня',
+  [TBookingDays.Tomorrow]: 'завтра'
+};
+
+export const QuestDescriptionLength = {
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 300,
+};
+
+export const PasswordLength = {
+  MIN_LENGTH: 3,
+  MAX_LENGTH: 15,
 };

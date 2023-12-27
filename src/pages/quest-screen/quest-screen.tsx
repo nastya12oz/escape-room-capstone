@@ -10,6 +10,8 @@ import { useEffect } from 'react';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { displayedQuestType, displayedLevel } from '../../const';
+import { truncateQuestDescription } from '../../utils/utils';
 
 
 function QuestScreen(): JSX.Element {
@@ -40,7 +42,7 @@ function QuestScreen(): JSX.Element {
     <div className="wrapper">
       <Header />
       <Helmet>
-        <title>Escape Room - {quest.title}</title>
+        <title>Квест {quest.title}</title>
       </Helmet>
       <main className="decorated-page quest-page">
         <div className="decorated-page__decor" aria-hidden="true">
@@ -51,21 +53,21 @@ function QuestScreen(): JSX.Element {
         <div className="container container--size-l">
           <div className="quest-page__content">
             <h1 className="title title--size-l title--uppercase quest-page__title">{quest.title}</h1>
-            <p className="subtitle quest-page__subtitle"><span className="visually-hidden">Жанр:</span>{quest.type}
+            <p className="subtitle quest-page__subtitle"><span className="visually-hidden">Жанр:</span>{displayedQuestType[quest.type]}
             </p>
             <ul className="tags tags--size-l quest-page__tags">
               <li className="tags__item">
                 <svg width="11" height="14" aria-hidden="true">
                   <use xlinkHref="#icon-person"></use>
-                </svg>3&ndash;6&nbsp;чел
+                </svg>{quest.peopleMinMax[0]}&ndash;{quest.peopleMinMax[1]}&nbsp;чел
               </li>
               <li className="tags__item">
                 <svg width={14} height={14} aria-hidden="true">
                   <use xlinkHref="#icon-level"></use>
-                </svg>Средний
+                </svg>{displayedLevel[quest.level]}
               </li>
             </ul>
-            <p className="quest-page__description">{quest.description}</p>
+            <p className="quest-page__description">{truncateQuestDescription(quest.description)}</p>
             <Link className="btn btn--accent btn--cta quest-page__btn" to={AppRoute.Booking.replace(':id', quest.id)}>Забронировать</Link>
           </div>
         </div>
