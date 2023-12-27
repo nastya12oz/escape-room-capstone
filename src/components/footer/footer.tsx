@@ -1,4 +1,7 @@
-function Footer(): JSX.Element {
+import { memo } from 'react';
+
+
+function FooterRaw(): JSX.Element {
   return(
     <footer className="footer">
       <div className="container container--size-l">
@@ -30,5 +33,7 @@ function Footer(): JSX.Element {
     </footer>
   );
 }
+
+const Footer = memo(FooterRaw);
 
 export default Footer;

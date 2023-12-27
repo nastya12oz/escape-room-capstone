@@ -71,14 +71,16 @@ function MapBooking({places}: MapBookingProps):JSX.Element {
   }, [map, places, selectedPlace, dispatch]);
 
   return (
-    <div className="booking-map">
-      <div className="map">
-        <div className="map__container"
-          ref={mapRef}
-        >
+    <div className="page-content__item">
+      <div className="booking-map">
+        <div className="map">
+          <div className="map__container"
+            ref={mapRef}
+          >
+          </div>
         </div>
+        <p className="booking-map__address">{selectedPlace && `Вы выбрали: ${selectedPlace.location.address}`}</p>
       </div>
-      <p className="booking-map__address">{selectedPlace && `Вы выбрали: ${selectedPlace.location.address}`}</p>
     </div>
   );
 }

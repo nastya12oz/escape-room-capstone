@@ -59,10 +59,9 @@ function BookingScreen(): JSX.Element {
             </h1>
             <p className="title title--size-m title--uppercase page-content__title">{quest.title}</p>
           </div>
-          <div className="page-content__item">
-            {bookingPlaces && <MapBooking places={bookingPlaces} />}
-            <BookingFrom id={quest.id} peopleMinMax={quest.peopleMinMax} />
-          </div>
+          {bookingPlaces && <MapBooking places={bookingPlaces} />}
+          <BookingFrom id={quest.id} peopleMinMax={quest.peopleMinMax} />
+
         </div>
       </main>
       <Footer />

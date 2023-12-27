@@ -34,7 +34,7 @@ export type TQuestFull = {
     previewImgWebp: string;
     level: TLevel;
     type: TQuestType;
-    peopleMinMax: [number];
+    peopleMinMax: [number, number];
     description: string;
     coverImg: string;
     coverImgWebp: string;

@@ -7,35 +7,43 @@ import classNames from 'classnames';
 
 
 function HeaderAuth(): JSX.Element {
-
   const dispatch = useAppDispatch();
-  const location = useLocation();
+  const {pathname} = useLocation();
+  const isIndexPage = pathname === AppRoute.Main;
 
 
   return(
     <header className="header">
       <div className="container container--size-l">
-        <span className="logo header__logo">
-          <svg width="134" height="52" aria-hidden="true">
-            <use xlinkHref="#logo"></use>
-          </svg>
-        </span>
+        {isIndexPage ? (
+          <a className="logo header__logo" aria-label="Перейти на Главную">
+            <svg width={134} height={52} aria-hidden="true">
+              <use xlinkHref="#logo"></use>
+            </svg>
+          </a>) :
+          (
+            <Link className="logo header__logo" to={AppRoute.Main} aria-label="Перейти на Главную">
+              <svg width={134} height={52} aria-hidden="true">
+                <use xlinkHref="#logo"></use>
+              </svg>
+            </Link>
+          ) }
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className={classNames('link', { active: location.pathname === AppRoute.Main })}
+              <Link className={classNames('link', { active: pathname === AppRoute.Main })}
                 to={AppRoute.Main}
               >Квесты
               </Link>
             </li>
             <li className="main-nav__item">
-              <Link className={classNames('link', { active: location.pathname === AppRoute.Contacts })}
+              <Link className={classNames('link', { active: pathname === AppRoute.Contacts })}
                 to={AppRoute.Contacts}
               >Контакты
               </Link>
             </li>
             <li className="main-nav__item">
-              <Link className={classNames('link', { active: location.pathname === AppRoute.MyQuests })}
+              <Link className={classNames('link', { active: pathname === AppRoute.MyQuests })}
                 to={AppRoute.MyQuests}
               >Мои бронирования
               </Link>

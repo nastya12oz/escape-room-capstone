@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import { AppRoute } from '../../const';
 import WelcomeScreen from '../../pages/welcome-screen/welcome-screen';
@@ -39,19 +39,17 @@ function App(): JSX.Element {
 
   return(
     <HelmetProvider>
-      <Router>
-        <Routes>
-          <Route path={AppRoute.Main} element={<WelcomeScreen />} />
-          <Route path={AppRoute.Contacts} element={<ConactsScreen />} />
-          <Route path={AppRoute.Login} element={<LoginScreen />} />
-          <Route path={AppRoute.Quest} element={<QuestScreen />} />
-          <Route element={<PrivateRoute authorizationStatus={authorizationStatus} />}>
-            <Route path={AppRoute.Booking} element={<BookingScreen />} />
-            <Route path={AppRoute.MyQuests} element={<MyQuestsScreen />} />
-          </Route>
-          <Route path='*'element={<NotFoundScreen />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path={AppRoute.Main} element={<WelcomeScreen />} />
+        <Route path={AppRoute.Contacts} element={<ConactsScreen />} />
+        <Route path={AppRoute.Login} element={<LoginScreen />} />
+        <Route path={AppRoute.Quest} element={<QuestScreen />} />
+        <Route element={<PrivateRoute authorizationStatus={authorizationStatus} />}>
+          <Route path={AppRoute.Booking} element={<BookingScreen />} />
+          <Route path={AppRoute.MyQuests} element={<MyQuestsScreen />} />
+        </Route>
+        <Route path='*'element={<NotFoundScreen />} />
+      </Routes>
     </HelmetProvider>
   );
 }
